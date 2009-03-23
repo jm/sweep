@@ -1,0 +1,17 @@
+History.txt
+Manifest.txt
+README.txt
+Rakefile
+bin/sweep
+lib/sweep.rb
+lib/sweep/directory_task.rb
+lib/sweep/file_task.rb
+lib/sweep/namespace.rb
+lib/sweep/rule.rb
+lib/sweep/runner.rb
+lib/sweep/task.rb
+test/test_sweep.rb
+test/test_helper.rb
+test/test_file_task.rb
+test/test_namespace.rb
+test/test_task.rb

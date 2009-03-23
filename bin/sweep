@@ -1,0 +1,34 @@
+#!/usr/bin/env ruby
+
+require File.expand_path(
+    File.join(File.dirname(__FILE__), %w[.. lib sweep]))
+require 'optparse'
+
+options = {}
+
+OptionParser.new do |opts|
+  opts.banner = "Usage: sweep [options] [task]"
+
+  opts.on("-F", "--file [FILE]", "Use the specified file as the tasks file") do |v|
+    options[:file] = v
+  end
+  
+  opts.on("-f", "--rakefile [FILE]", "Use the specified file as the tasks file (Rake compatability)") do |v|
+    options[:file] = v
+  end
+  
+  opts.on("-T", "--tasks", "List available tasks") do |v|
+    options[:show] = v
+  end
+end.parse!
+
+options[:file] = Sweep::Runner.find_task_file(options[:file])
+
+if options[:show]
+  Sweep::Runner.show_tasks_in(options[:file])
+  exit
+elsif options[:file].nil?
+  raise "Task file not found!  Please create a file named Taskfile, taskfile.rb, Rakefile, rakefile.rb, or tasks.rb."
+else
+  Sweep::Runner.run(ARGV.pop, File.read(options[:file]))
+end
